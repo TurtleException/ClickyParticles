@@ -1,0 +1,5 @@
+name: "ClickyParticles"
+description: "Summon customizable particles when right-clicking other players!"
+
+main: de.eldritch.spigot.clicky_particles.ClickyParticles
+version: ${project.version}
