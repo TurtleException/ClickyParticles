@@ -3,3 +3,14 @@ description: "Summon customizable particles when right-clicking other players!"
 
 main: de.eldritch.spigot.clicky_particles.ClickyParticles
 version: ${project.version}
+
+commands:
+  clicky:
+    description: "Opens the particle configurator"
+    usage: /clicky
+    aliases:
+      - click
+      - particles
+  reload-particles:
+    description: "Reload the particles.yml file"
+    usage: /reload-particles
