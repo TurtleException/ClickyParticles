@@ -26,6 +26,8 @@ public class CommandClicky implements CommandExecutor {
                 } else {
                     particleConfig.set(player, clickedPlayer, particle);
                 }
+
+                player.closeInventory();
             });
         });
 

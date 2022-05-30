@@ -27,6 +27,7 @@ public class ClickyParticles extends JavaPlugin {
         this.getCommand("clicky").setExecutor(new CommandClicky());
         this.getCommand("reload-particles").setExecutor((sender, command, label, args) -> {
             reloadPlayerService();
+            sender.sendMessage("[ClickyParticles] Reload complete!");
             return true;
         });
     }

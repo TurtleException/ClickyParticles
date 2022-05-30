@@ -18,14 +18,21 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ClickyGUI {
-    private static final OfflinePlayer MHF_ARROW_LEFT = Bukkit.getOfflinePlayer(UUID.fromString("a68f0b64-8d14-4000-a95f-4b9ba14f8df9"));
-    private static final OfflinePlayer MHF_ARROW_RIGHT = Bukkit.getOfflinePlayer(UUID.fromString("50c8510b-5ea0-4d60-be9a-7d542d6cd156"));
+    // idk why this is deprecated, but it doesn't work with UUIDs for this purpose
+    @SuppressWarnings("deprecation")
+    private static final OfflinePlayer MHF_ARROW_LEFT  = Bukkit.getOfflinePlayer("MHF_ArrowLeft");
+    @SuppressWarnings("deprecation")
+    private static final OfflinePlayer MHF_ARROW_RIGHT = Bukkit.getOfflinePlayer("MHF_ArrowRight");
 
     public void generatePlayerGUI(@NotNull Player player, @NotNull Consumer<OfflinePlayer> clickAction) {
         TreeSet<OfflinePlayer> players = new TreeSet<>(Comparator
                 .comparing(OfflinePlayer::isOnline)
-                .thenComparing(OfflinePlayer::getName)
-        );
+                .thenComparing(player1 -> {
+                    if (player1.getName() != null)
+                        return player1.getName().toLowerCase();
+                    else
+                        return null;
+                }));
         players.addAll(PlayerUtil.getPlayers());
 
         // remove the player that is using the GUI
@@ -33,7 +40,7 @@ public class ClickyGUI {
 
         ArrayList<GuiItem> guiItems = new ArrayList<>();
         for (OfflinePlayer selectedPlayer : players) {
-            guiItems.add(new GuiItem(PlayerUtil.getPlayerHeadFormat(player), event -> {
+            guiItems.add(new GuiItem(PlayerUtil.getPlayerHeadFormat(selectedPlayer), event -> {
                 event.setCancelled(true);
                 clickAction.accept(selectedPlayer);
             }));
@@ -81,7 +88,7 @@ public class ClickyGUI {
         // glowstone for currently selected particle, gunpowder for every other particle
         Material material = currentParticle != particle ? Material.GUNPOWDER : Material.GLOWSTONE_DUST;
         // golden name for currently selected particle, gray name for every other particle
-        ChatColor color = currentParticle != particle ? ChatColor.GOLD : ChatColor.GRAY;
+        ChatColor color = currentParticle != particle ? ChatColor.GRAY : ChatColor.GOLD;
 
         // default button
         if (particle == null)
@@ -135,6 +142,7 @@ public class ClickyGUI {
                     event.setCancelled(true);
                     if (contentPane.getPage() > 0)
                         contentPane.setPage(contentPane.getPage() - 1);
+                    gui.update();
                 }), 2, 0);
         controlPane.addItem(new GuiItem(
                 renameItem(PlayerUtil.getPlayerHead(MHF_ARROW_RIGHT), ChatColor.GRAY + "Next Page"),
@@ -142,11 +150,12 @@ public class ClickyGUI {
                     event.setCancelled(true);
                     if (contentPane.getPage() < contentPane.getPages() - 1)
                         contentPane.setPage(contentPane.getPage() + 1);
+                    gui.update();
                 }), 6, 0);
 
 
         gui.addPane(contentPane);
-        gui.addPane(contentPane);
+        gui.addPane(controlPane);
 
         return gui;
     }

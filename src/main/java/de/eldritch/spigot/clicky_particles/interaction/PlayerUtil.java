@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
@@ -29,26 +28,19 @@ class PlayerUtil {
      * will have the name of the player in both cases.
      */
     public static ItemStack getPlayerHeadFormat(OfflinePlayer player) {
-        ItemStack item;
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
 
-        if (player instanceof Player oPlayer) {
-            item = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        if (meta != null) {
+            meta.setOwningPlayer(player);
 
-            SkullMeta meta = (SkullMeta) item.getItemMeta();
-            if (meta != null) {
-                meta.setOwningPlayer(player);
+            if (player instanceof Player oPlayer) {
                 meta.setDisplayName(ChatColor.GOLD + oPlayer.getDisplayName());
-            }
-            item.setItemMeta(meta);
-        } else {
-            item = new ItemStack(Material.SKELETON_SKULL);
-
-            ItemMeta meta = item.getItemMeta();
-            if (meta != null) {
+            } else {
                 meta.setDisplayName(ChatColor.GRAY + Objects.requireNonNullElse(player.getName(), "Unknown player"));
             }
-            item.setItemMeta(meta);
         }
+        item.setItemMeta(meta);
 
         return item;
     }
