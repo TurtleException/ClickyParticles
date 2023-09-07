@@ -16,8 +16,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public class PlayerService {
-    private final PlayerConfig<Particle> particles = new PlayerConfig<>();
-    private final PlayerConfig<String>   messages  = new PlayerConfig<>();
+    private final PlayerConfig particles = new PlayerConfig();
 
     private final YamlConfiguration config = new YamlConfiguration();
     private final File file;
@@ -34,7 +33,7 @@ public class PlayerService {
 
     /* ----- ----- ----- */
 
-    public PlayerConfig<Particle> particleConfig() {
+    public PlayerConfig particleConfig() {
         return particles;
     }
 
@@ -48,8 +47,7 @@ public class PlayerService {
     public void load() throws IOException, InvalidConfigurationException {
         config.load(file);
 
-        particles.set(parseParticle(config.getString("default.particle")));
-        messages.set(config.getString("default.message"));
+        particles.set(parseParticle(config.getString("default")));
 
         for (String key : config.getKeys(false)) {
             if (key.equals("default")) continue;
@@ -66,10 +64,7 @@ public class PlayerService {
 
             // try to define the default particle
             // note: this also removes the previously set particle if it is not listed in the new config
-            particles.set(player, parseParticle(config.getString(key + ".default.particle")));
-
-            // try to define the default message
-            messages.set(player, config.getString(key + ".default.message"));
+            particles.set(player, parseParticle(config.getString(key + ".default")));
 
             // iterate through secondary players and define each value
             for (String sectionKey : section.getKeys(false)) {
@@ -79,10 +74,7 @@ public class PlayerService {
                 if (clickedPlayer == null) continue;
 
                 // try to define the particle
-                particles.set(player, clickedPlayer, parseParticle(config.getString(key + "." + sectionKey + ".particle")));
-
-                // try to define the message
-                messages.set(player, clickedPlayer, config.getString(key + "." + sectionKey + ".message"));
+                particles.set(player, clickedPlayer, parseParticle(config.getString(key + "." + sectionKey)));
             }
         }
     }
@@ -92,14 +84,15 @@ public class PlayerService {
      * @throws IOException if the YAML config could not be saved properly.
      */
     public void save() throws IOException {
-        HashMap<String, Particle> particleMap = particles.getAsMap("particle");
-        HashMap<String, String>    messageMap =  messages.getAsMap("message");
+        HashMap<String, Particle> particleMap = particles.getAsMap();
 
-        for (String s : particleMap.keySet())
-            config.set(s, particleMap.get(s));
+        for (String s : particleMap.keySet()) {
+            Particle particle = particleMap.get(s);
 
-        for (String s : messageMap.keySet())
-            config.set(s, messageMap.get(s));
+            if (particle == null) continue;
+
+            config.set(s, particle.name());
+        }
 
         config.save(file);
     }

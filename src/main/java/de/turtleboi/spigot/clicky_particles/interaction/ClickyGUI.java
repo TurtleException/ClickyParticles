@@ -63,7 +63,7 @@ public class ClickyGUI {
     }
 
     public void generateParticleGUI(@NotNull Player player, @Nullable OfflinePlayer clickedPlayer, @NotNull Consumer<Particle> clickAction) {
-        PlayerConfig<Particle> particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
+        PlayerConfig particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
         Particle currentParticle = clickedPlayer != null
                 ? particleConfig.get(player, clickedPlayer)
                 : particleConfig.get(player);

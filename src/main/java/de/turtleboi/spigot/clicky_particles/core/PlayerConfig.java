@@ -1,48 +1,48 @@
 package de.turtleboi.spigot.clicky_particles.core;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Particle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerConfig<T> {
-    private final ConcurrentHashMap<OfflinePlayer, ConcurrentHashMap<OfflinePlayer, T>> playerValues = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<OfflinePlayer, T> defaultValues = new ConcurrentHashMap<>();
-    private T defaultValue;
+public class PlayerConfig {
+    private final ConcurrentHashMap<OfflinePlayer, ConcurrentHashMap<OfflinePlayer, Particle>> playerValues = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<OfflinePlayer, Particle> defaultValues = new ConcurrentHashMap<>();
+    private Particle defaultValue;
 
     /* ----- ----- ----- */
 
-    public @Nullable T get(OfflinePlayer player, OfflinePlayer clickedPlayer) {
-        ConcurrentHashMap<OfflinePlayer, T> map = playerValues.get(player);
+    public @Nullable Particle get(OfflinePlayer player, OfflinePlayer clickedPlayer) {
+        ConcurrentHashMap<OfflinePlayer, Particle> map = playerValues.get(player);
         return map == null ? null : map.get(clickedPlayer);
     }
 
-    public @Nullable T get(OfflinePlayer player) {
+    public @Nullable Particle get(OfflinePlayer player) {
         return defaultValues.get(player);
     }
 
-    public @Nullable T get() {
+    public @Nullable Particle get() {
         return defaultValue;
     }
 
-    public void set(@NotNull OfflinePlayer player, @NotNull OfflinePlayer clickedPlayer, @Nullable T value) {
-        ConcurrentHashMap<OfflinePlayer, T> map = playerValues.get(player);
+    public void set(@NotNull OfflinePlayer player, @NotNull OfflinePlayer clickedPlayer, @Nullable Particle value) {
+        ConcurrentHashMap<OfflinePlayer, Particle> map = playerValues.get(player);
 
         if (map == null) {
             map = new ConcurrentHashMap<>();
             playerValues.put(player, map);
         }
 
-        if (value == null) {
+        if (value == null)
             map.remove(clickedPlayer);
-        } else {
+        else
             map.put(clickedPlayer, value);
-        }
     }
 
-    public void set(@NotNull OfflinePlayer player, @Nullable T value) {
+    public void set(@NotNull OfflinePlayer player, @Nullable Particle value) {
         if (value == null) {
             defaultValues.remove(player);
         } else {
@@ -50,25 +50,25 @@ public class PlayerConfig<T> {
         }
     }
 
-    public void set(@Nullable T value) {
+    public void set(@Nullable Particle value) {
         defaultValue = value;
     }
 
     /* ----- ----- ----- */
 
-    public HashMap<String, T> getAsMap(@NotNull String key) {
-        HashMap<String, T> map = new HashMap<>();
+    public HashMap<String, Particle> getAsMap() {
+        HashMap<String, Particle> map = new HashMap<>();
 
-        map.put("default." + key, defaultValue);
+        map.put("default", defaultValue);
 
         for (OfflinePlayer player : defaultValues.keySet()) {
-            map.put(player.getUniqueId() + ".default." + key, defaultValues.get(player));
+            map.put(player.getUniqueId() + ".default", defaultValues.get(player));
         }
 
         for (OfflinePlayer player : playerValues.keySet()) {
-            ConcurrentHashMap<OfflinePlayer, T> specificPlayerValues = playerValues.get(player);
+            ConcurrentHashMap<OfflinePlayer, Particle> specificPlayerValues = playerValues.get(player);
             for (OfflinePlayer clickedPlayer : specificPlayerValues.keySet()) {
-                map.put(player.getUniqueId() + "." + clickedPlayer.getUniqueId() + "." + key, specificPlayerValues.get(clickedPlayer));
+                map.put(player.getUniqueId() + "." + clickedPlayer.getUniqueId(), specificPlayerValues.get(clickedPlayer));
             }
         }
 

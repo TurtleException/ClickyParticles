@@ -2,7 +2,6 @@ package de.turtleboi.spigot.clicky_particles.interaction;
 
 import de.turtleboi.spigot.clicky_particles.ClickyParticles;
 import de.turtleboi.spigot.clicky_particles.core.PlayerConfig;
-import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,7 +18,7 @@ public class CommandClicky implements CommandExecutor {
 
         clickyGUI.generatePlayerGUI(player, clickedPlayer ->
             clickyGUI.generateParticleGUI(player, clickedPlayer, particle -> {
-                PlayerConfig<Particle> particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
+                PlayerConfig particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
 
                 if (clickedPlayer == null) {
                     particleConfig.set(player, particle);
