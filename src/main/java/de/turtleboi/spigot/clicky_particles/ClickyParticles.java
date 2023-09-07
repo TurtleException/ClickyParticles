@@ -7,7 +7,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.logging.Level;
 
 public class ClickyParticles extends JavaPlugin {

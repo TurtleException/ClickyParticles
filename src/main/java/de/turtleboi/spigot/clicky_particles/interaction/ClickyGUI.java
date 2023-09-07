@@ -70,11 +70,11 @@ public class ClickyGUI {
 
         ArrayList<GuiItem> guiItems = new ArrayList<>();
         for (Map.Entry<String, Particle> entry : Particles.PARTICLE_NAMES.entrySet()) {
-            guiItems.add(getParticleItem(entry.getKey(), entry.getValue(), currentParticle, clickedPlayer, clickAction));
+            guiItems.add(getParticleItem(entry.getKey(), entry.getValue(), currentParticle, clickAction));
         }
 
         // default button
-        GuiItem defaultItem = getParticleItem("Default", null, currentParticle, clickedPlayer, clickAction);
+        GuiItem defaultItem = getParticleItem("Default", null, currentParticle, clickAction);
 
         String title = clickedPlayer != null ? clickedPlayer.getName() : "default";
         ChestGui gui = buildGUI(contentRows(guiItems.size()), "Particles (" + title + ")", guiItems, defaultItem);
@@ -84,7 +84,7 @@ public class ClickyGUI {
         gui.update();
     }
 
-    private static @NotNull GuiItem getParticleItem(@NotNull String name, @Nullable Particle particle, @Nullable Particle currentParticle, @Nullable OfflinePlayer clickedPlayer, @NotNull Consumer<Particle> clickAction) {
+    private static @NotNull GuiItem getParticleItem(@NotNull String name, @Nullable Particle particle, @Nullable Particle currentParticle, @NotNull Consumer<Particle> clickAction) {
         // glowstone for currently selected particle, gunpowder for every other particle
         Material material = currentParticle != particle ? Material.GUNPOWDER : Material.GLOWSTONE_DUST;
         // golden name for currently selected particle, gray name for every other particle

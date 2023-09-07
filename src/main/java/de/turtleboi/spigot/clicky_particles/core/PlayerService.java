@@ -38,10 +38,6 @@ public class PlayerService {
         return particles;
     }
 
-    public PlayerConfig<String> messageConfig() {
-        return messages;
-    }
-
     /* ----- ----- ----- */
 
     /**

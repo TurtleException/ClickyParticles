@@ -17,7 +17,7 @@ public class CommandClicky implements CommandExecutor {
         // fail silently if the sender is not a player
         if (!(sender instanceof Player player)) return true;
 
-        clickyGUI.generatePlayerGUI(player, clickedPlayer -> {
+        clickyGUI.generatePlayerGUI(player, clickedPlayer ->
             clickyGUI.generateParticleGUI(player, clickedPlayer, particle -> {
                 PlayerConfig<Particle> particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
 
@@ -28,8 +28,8 @@ public class CommandClicky implements CommandExecutor {
                 }
 
                 player.closeInventory();
-            });
-        });
+            })
+        );
 
         return true;
     }

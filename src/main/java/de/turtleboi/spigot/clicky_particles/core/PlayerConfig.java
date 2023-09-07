@@ -62,13 +62,13 @@ public class PlayerConfig<T> {
         map.put("default." + key, defaultValue);
 
         for (OfflinePlayer player : defaultValues.keySet()) {
-            map.put(player.getUniqueId().toString() + ".default." + key, defaultValues.get(player));
+            map.put(player.getUniqueId() + ".default." + key, defaultValues.get(player));
         }
 
         for (OfflinePlayer player : playerValues.keySet()) {
             ConcurrentHashMap<OfflinePlayer, T> specificPlayerValues = playerValues.get(player);
             for (OfflinePlayer clickedPlayer : specificPlayerValues.keySet()) {
-                map.put(player.getUniqueId().toString() + "." + clickedPlayer.getUniqueId().toString() + "." + key, specificPlayerValues.get(clickedPlayer));
+                map.put(player.getUniqueId() + "." + clickedPlayer.getUniqueId() + "." + key, specificPlayerValues.get(clickedPlayer));
             }
         }
 
