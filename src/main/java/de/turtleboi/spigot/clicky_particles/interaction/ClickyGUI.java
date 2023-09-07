@@ -1,12 +1,12 @@
-package de.eldritch.spigot.clicky_particles.interaction;
+package de.turtleboi.spigot.clicky_particles.interaction;
 
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import de.eldritch.spigot.clicky_particles.ClickyParticles;
-import de.eldritch.spigot.clicky_particles.core.Particles;
-import de.eldritch.spigot.clicky_particles.core.PlayerConfig;
+import de.turtleboi.spigot.clicky_particles.ClickyParticles;
+import de.turtleboi.spigot.clicky_particles.core.Particles;
+import de.turtleboi.spigot.clicky_particles.core.PlayerConfig;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

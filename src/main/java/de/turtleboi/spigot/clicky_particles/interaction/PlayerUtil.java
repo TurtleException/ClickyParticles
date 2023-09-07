@@ -1,6 +1,6 @@
-package de.eldritch.spigot.clicky_particles.interaction;
+package de.turtleboi.spigot.clicky_particles.interaction;
 
-import de.eldritch.spigot.clicky_particles.ClickyParticles;
+import de.turtleboi.spigot.clicky_particles.ClickyParticles;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;

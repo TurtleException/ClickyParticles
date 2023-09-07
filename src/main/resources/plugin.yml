@@ -3,7 +3,7 @@ description: "Summon customizable particles when right-clicking other players!"
 author: TurtleException
 website: "https://github.com/TurtleException/ClickyParticles"
 
-main: de.eldritch.spigot.clicky_particles.ClickyParticles
+main: de.turtleboi.spigot.clicky_particles.ClickyParticles
 version: ${project.version}
 api-version: 1.18
 

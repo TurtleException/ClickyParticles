@@ -1,6 +1,6 @@
-package de.eldritch.spigot.clicky_particles.core;
+package de.turtleboi.spigot.clicky_particles.core;
 
-import de.eldritch.spigot.clicky_particles.ClickyParticles;
+import de.turtleboi.spigot.clicky_particles.ClickyParticles;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;

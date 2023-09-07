@@ -1,8 +1,8 @@
-package de.eldritch.spigot.clicky_particles;
+package de.turtleboi.spigot.clicky_particles;
 
-import de.eldritch.spigot.clicky_particles.core.PlayerService;
-import de.eldritch.spigot.clicky_particles.interaction.CommandClicky;
-import de.eldritch.spigot.clicky_particles.listener.PlayerInteractEntityListener;
+import de.turtleboi.spigot.clicky_particles.core.PlayerService;
+import de.turtleboi.spigot.clicky_particles.interaction.CommandClicky;
+import de.turtleboi.spigot.clicky_particles.listener.PlayerInteractEntityListener;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 

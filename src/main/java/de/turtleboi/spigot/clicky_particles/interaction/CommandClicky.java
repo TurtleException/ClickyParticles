@@ -1,7 +1,7 @@
-package de.eldritch.spigot.clicky_particles.interaction;
+package de.turtleboi.spigot.clicky_particles.interaction;
 
-import de.eldritch.spigot.clicky_particles.ClickyParticles;
-import de.eldritch.spigot.clicky_particles.core.PlayerConfig;
+import de.turtleboi.spigot.clicky_particles.ClickyParticles;
+import de.turtleboi.spigot.clicky_particles.core.PlayerConfig;
 import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

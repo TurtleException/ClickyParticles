@@ -1,4 +1,4 @@
-package de.eldritch.spigot.clicky_particles.core;
+package de.turtleboi.spigot.clicky_particles.core;
 
 import org.bukkit.Particle;
 import org.jetbrains.annotations.NotNull;

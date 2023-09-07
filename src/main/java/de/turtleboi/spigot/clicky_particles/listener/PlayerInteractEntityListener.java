@@ -1,8 +1,8 @@
-package de.eldritch.spigot.clicky_particles.listener;
+package de.turtleboi.spigot.clicky_particles.listener;
 
-import de.eldritch.spigot.clicky_particles.ClickyParticles;
-import de.eldritch.spigot.clicky_particles.core.Particles;
-import de.eldritch.spigot.clicky_particles.core.PlayerService;
+import de.turtleboi.spigot.clicky_particles.ClickyParticles;
+import de.turtleboi.spigot.clicky_particles.core.Particles;
+import de.turtleboi.spigot.clicky_particles.core.PlayerService;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
