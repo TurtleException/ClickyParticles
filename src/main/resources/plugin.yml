@@ -12,8 +12,4 @@ commands:
     description: "Opens the particle configurator"
     usage: /clicky
     aliases:
-      - click
       - particles
-  reload-particles:
-    description: "Reload the particles.yml file"
-    usage: /reload-particles

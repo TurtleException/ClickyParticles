@@ -7,6 +7,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.logging.Level;
 
 public class ClickyParticles extends JavaPlugin {
@@ -20,16 +21,15 @@ public class ClickyParticles extends JavaPlugin {
         singleton = this;
 
         this.saveDefaultConfig();
-        this.reloadPlayerService();
+        try {
+            playerService = new PlayerService();
+        } catch (IOException | InvalidConfigurationException e) {
+            throw new RuntimeException(e);
+        }
 
         this.getServer().getPluginManager().registerEvents(new PlayerInteractEntityListener(), this);
 
         this.getCommand("clicky").setExecutor(new CommandClicky());
-        this.getCommand("reload-particles").setExecutor((sender, command, label, args) -> {
-            reloadPlayerService();
-            sender.sendMessage("[ClickyParticles] Reload complete!");
-            return true;
-        });
     }
 
     @Override
@@ -43,13 +43,5 @@ public class ClickyParticles extends JavaPlugin {
 
     public PlayerService getPlayerService() {
         return playerService;
-    }
-
-    public void reloadPlayerService() {
-        try {
-            playerService = new PlayerService();
-        } catch (IOException | InvalidConfigurationException e) {
-            getLogger().log(Level.WARNING, "Could not reload particles!", e);
-        }
     }
 }
