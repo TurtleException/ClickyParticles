@@ -1,26 +1,26 @@
 package de.turtleboi.spigot.clicky_particles.core;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerConfig {
-    private final ConcurrentHashMap<OfflinePlayer, ConcurrentHashMap<OfflinePlayer, Particle>> playerValues = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<OfflinePlayer, Particle> defaultValues = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, ConcurrentHashMap<UUID, Particle>> playerValues = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, Particle> defaultValues = new ConcurrentHashMap<>();
     private Particle defaultValue;
 
     /* ----- ----- ----- */
 
-    public @Nullable Particle get(OfflinePlayer player, OfflinePlayer clickedPlayer) {
-        ConcurrentHashMap<OfflinePlayer, Particle> map = playerValues.get(player);
+    public @Nullable Particle get(UUID player, UUID clickedPlayer) {
+        ConcurrentHashMap<UUID, Particle> map = playerValues.get(player);
         return map == null ? null : map.get(clickedPlayer);
     }
 
-    public @Nullable Particle get(OfflinePlayer player) {
+    public @Nullable Particle get(UUID player) {
         return defaultValues.get(player);
     }
 
@@ -28,8 +28,8 @@ public class PlayerConfig {
         return defaultValue;
     }
 
-    public void set(@NotNull OfflinePlayer player, @NotNull OfflinePlayer clickedPlayer, @Nullable Particle value) {
-        ConcurrentHashMap<OfflinePlayer, Particle> map = playerValues.get(player);
+    public void set(@NotNull UUID player, @NotNull UUID clickedPlayer, @Nullable Particle value) {
+        ConcurrentHashMap<UUID, Particle> map = playerValues.get(player);
 
         if (map == null) {
             map = new ConcurrentHashMap<>();
@@ -42,7 +42,7 @@ public class PlayerConfig {
             map.put(clickedPlayer, value);
     }
 
-    public void set(@NotNull OfflinePlayer player, @Nullable Particle value) {
+    public void set(@NotNull UUID player, @Nullable Particle value) {
         if (value == null) {
             defaultValues.remove(player);
         } else {
@@ -61,14 +61,14 @@ public class PlayerConfig {
 
         map.put("default", defaultValue);
 
-        for (OfflinePlayer player : defaultValues.keySet()) {
-            map.put(player.getUniqueId() + ".default", defaultValues.get(player));
+        for (UUID player : defaultValues.keySet()) {
+            map.put(player + ".default", defaultValues.get(player));
         }
 
-        for (OfflinePlayer player : playerValues.keySet()) {
-            ConcurrentHashMap<OfflinePlayer, Particle> specificPlayerValues = playerValues.get(player);
-            for (OfflinePlayer clickedPlayer : specificPlayerValues.keySet()) {
-                map.put(player.getUniqueId() + "." + clickedPlayer.getUniqueId(), specificPlayerValues.get(clickedPlayer));
+        for (UUID player : playerValues.keySet()) {
+            ConcurrentHashMap<UUID, Particle> specificPlayerValues = playerValues.get(player);
+            for (UUID clickedPlayer : specificPlayerValues.keySet()) {
+                map.put(player + "." + clickedPlayer, specificPlayerValues.get(clickedPlayer));
             }
         }
 

@@ -21,9 +21,9 @@ public class CommandClicky implements CommandExecutor {
                 PlayerConfig particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
 
                 if (clickedPlayer == null) {
-                    particleConfig.set(player, particle);
+                    particleConfig.set(player.getUniqueId(), particle);
                 } else {
-                    particleConfig.set(player, clickedPlayer, particle);
+                    particleConfig.set(player.getUniqueId(), clickedPlayer.getUniqueId(), particle);
                 }
 
                 player.closeInventory();

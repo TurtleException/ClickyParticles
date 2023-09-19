@@ -65,8 +65,8 @@ public class ClickyGUI {
     public void generateParticleGUI(@NotNull Player player, @Nullable OfflinePlayer clickedPlayer, @NotNull Consumer<Particle> clickAction) {
         PlayerConfig particleConfig = ClickyParticles.singleton.getPlayerService().particleConfig();
         Particle currentParticle = clickedPlayer != null
-                ? particleConfig.get(player, clickedPlayer)
-                : particleConfig.get(player);
+                ? particleConfig.get(player.getUniqueId(), clickedPlayer.getUniqueId())
+                : particleConfig.get(player.getUniqueId());
 
         ArrayList<GuiItem> guiItems = new ArrayList<>();
         for (Map.Entry<String, Particle> entry : Particles.PARTICLE_NAMES.entrySet()) {

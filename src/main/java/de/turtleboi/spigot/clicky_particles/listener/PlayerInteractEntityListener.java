@@ -16,10 +16,10 @@ public class PlayerInteractEntityListener implements Listener {
         if (!(event.getRightClicked() instanceof Player entityPlayer)) return;
 
         PlayerService pService = ClickyParticles.singleton.getPlayerService();
-        Particle      particle = pService.particleConfig().get(event.getPlayer(), entityPlayer);
+        Particle      particle = pService.particleConfig().get(event.getPlayer().getUniqueId(), entityPlayer.getUniqueId());
 
         if (particle == null)
-            particle = pService.particleConfig().get(event.getPlayer());
+            particle = pService.particleConfig().get(event.getPlayer().getUniqueId());
         if (particle == null)
             particle = pService.particleConfig().get();
         if (particle == null)

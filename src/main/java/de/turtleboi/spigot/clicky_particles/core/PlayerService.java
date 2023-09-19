@@ -1,7 +1,6 @@
 package de.turtleboi.spigot.clicky_particles.core;
 
 import de.turtleboi.spigot.clicky_particles.ClickyParticles;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -53,7 +52,7 @@ public class PlayerService {
             if (key.equals("default")) continue;
 
             // try to parse the key to a player (fail silently and ignore this section)
-            OfflinePlayer player = parsePlayer(key);
+            UUID player = parsePlayer(key);
             if (player == null) continue;
 
             ConfigurationSection section = config.getConfigurationSection(key);
@@ -70,7 +69,7 @@ public class PlayerService {
             for (String sectionKey : section.getKeys(false)) {
                 if (sectionKey.equals("default")) continue;
 
-                OfflinePlayer clickedPlayer = parsePlayer(sectionKey);
+                UUID clickedPlayer = parsePlayer(sectionKey);
                 if (clickedPlayer == null) continue;
 
                 // try to define the particle
@@ -98,13 +97,12 @@ public class PlayerService {
     }
 
     /**
-     * Utility method to parse an {@link OfflinePlayer} from the String representation of its {@link UUID}.
+     * Utility method to parse a {@link UUID} from its String representation.
      * If the UUID cannot be parsed <code>null</code> will be returned.
      */
-    private static @Nullable OfflinePlayer parsePlayer(@NotNull String uuidString) {
+    private static @Nullable UUID parsePlayer(@NotNull String uuidString) {
         try {
-            UUID uuid = UUID.fromString(uuidString);
-            return ClickyParticles.singleton.getServer().getOfflinePlayer(uuid);
+            return UUID.fromString(uuidString);
         } catch (IllegalArgumentException e) {
             // only log this as FINE to prevent spam
             ClickyParticles.singleton.getLogger().log(Level.FINE, "\"" + uuidString + "\" is not a valid UUID.");
